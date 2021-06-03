@@ -11,10 +11,16 @@ from django.http import Http404
 class CollectionList(APIView):
 
     def get(self, request):
-        pass
+        collection = Collection.objects.all()
+        serializer = CollectionSerializer(collection, many=True)
+        return Response(serializer.data)
 
     def post(self, request):
-        pass
+        serializer = CollectionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
 
 class CollectionDetail(APIView):

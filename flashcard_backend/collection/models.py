@@ -4,6 +4,6 @@ from django.db import models
 
 
 class Collection(models.Model):
-    name = models.CharField(max_length=50, blank=True, null=True)
+    name = models.CharField(max_length=50)
 
 

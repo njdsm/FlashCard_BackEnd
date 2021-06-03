@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Flashcard(models.Model):
-    collection_id = models.ForeignKey(
+    collection = models.ForeignKey(
         'collection.Collection', on_delete=models.CASCADE
     )
     front_text = models.CharField(max_length=250, null=True, blank=True)

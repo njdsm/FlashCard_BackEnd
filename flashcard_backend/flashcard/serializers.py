@@ -3,6 +3,7 @@ from .models import Flashcard
 
 
 class FlashcardSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Flashcard
-        fields = ['id', 'collection_id', 'front_text', 'back_text']
+        fields = ['id', 'collection', 'front_text', 'back_text']

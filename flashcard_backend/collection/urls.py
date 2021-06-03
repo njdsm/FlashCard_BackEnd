@@ -2,6 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('collection/', views.CollectionList.as_view()),
-    path('collection/<int:pk>/', views.CollectionDetail.as_view()),
+    path('', views.CollectionList.as_view()),
+    path('<int:pk>/', views.CollectionDetail.as_view()),
 ]
