@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Collection, Flashcard
+from .models import Collection
 
 
 class CollectionSerializer(serializers.ModelSerializer):
@@ -7,8 +7,3 @@ class CollectionSerializer(serializers.ModelSerializer):
         model = Collection
         fields = ['id', 'name']
 
-
-class FlashcardSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Flashcard
-        fields = ['id', 'collection_id', 'front_text', 'back_text']

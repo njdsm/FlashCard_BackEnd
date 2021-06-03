@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'flashcard.apps.FlashcardConfig',
+    'collection.apps.CollectionConfig',
     'rest_framework',
     'corsheaders',
 ]
