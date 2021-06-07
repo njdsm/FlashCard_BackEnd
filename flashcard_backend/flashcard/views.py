@@ -11,7 +11,7 @@ from django.http import Http404
 
 class FlashcardList(APIView):
 
-    def get(self):
+    def get(self, request):
         flashcard = Flashcard.objects.all()
         serializer = FlashcardSerializer(flashcard, many=True)
         return Response(serializer.data)
@@ -32,6 +32,17 @@ class FlashcardDetail(APIView):
         except Flashcard.DoesNotExist:
             raise Http404
 
+    def get_cards(self, pk):
+        try:
+            return Flashcard.objects.filter(collection_id=pk)
+        except Flashcard.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        cards = self.get_cards(pk)
+        serializer = FlashcardSerializer(cards, many=True)
+        return Response(serializer.data)
+
     def put(self, request, pk):
         flashcard = self.get_object(pk)
         serializer = FlashcardSerializer(flashcard, data=request.data)
@@ -40,7 +51,7 @@ class FlashcardDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
+    def delete(self, pk):
         flashcard = self.get_object(pk)
         flashcard.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

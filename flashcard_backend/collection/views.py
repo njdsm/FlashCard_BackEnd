@@ -25,11 +25,16 @@ class CollectionList(APIView):
 
 class CollectionDetail(APIView):
 
-    def get_collection(self, pk):
-        pass
+    def get_cards(self, pk):
+        try:
+            return Collection.objects.get(pk=pk)
+        except Collection.DoesNotExist:
+            raise Http404
 
-    def get(self, request, pk):
-        pass
+    def get(self, pk):
+        collection = self.get_collection(pk)
+        serializer = CollectionSerializer(collection)
+        return Response(serializer.data)
 
     def put(self, request, pk):
         pass
