@@ -31,6 +31,12 @@ class CollectionDetail(APIView):
         except Collection.DoesNotExist:
             raise Http404
 
+    def get_collection(self, pk):
+        try:
+            return Collection.objects.get(pk=pk)
+        except Collection.DoesNotExist:
+            raise Http404
+
     def get(self, pk):
         collection = self.get_collection(pk)
         serializer = CollectionSerializer(collection)
@@ -40,4 +46,6 @@ class CollectionDetail(APIView):
         pass
 
     def delete(self, request, pk):
-        pass
+        collection = self.get_collection(pk)
+        collection.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
